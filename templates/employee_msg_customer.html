@@ -1,0 +1,40 @@
+{%include 'employee_header.html'%}
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height:200px">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+		<h1>Customers</h1>
+      	</div>
+      </div>
+  </section>
+<center>
+	
+		
+		<table class="table" style="width:500px;color:black;margin-bottom: 14rem;margin-top: 2rem;">
+			<tr>
+				<th>slno.</th>
+				<th>Customer Name</th>
+				<th>House Name</th>
+				<th>Place</th>
+				<th>Pincode</th>
+				<th>Phone</th>
+				<th>Email</th>
+				
+			</tr>
+			{%for row in data['customer']%}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{row['f_name']}} {{row['l_name']}}</td>
+				<td>{{row['house_name']}}</td>
+				<td>{{row['cust_place']}}</td>
+				<td>{{row['pincode']}}</td>
+				<td>{{row['cust_phone']}}</td>
+				<td>{{row['cust_email']}}</td>
+		
+				<td><a href="employee_chat_customer?receiver_id={{row['login_id']}}" class="btn btn-danger">Chat</a></td>
+			</tr>
+			{%endfor%}
+		</table>
+	
+</center>
+{%include 'footer.html'%}

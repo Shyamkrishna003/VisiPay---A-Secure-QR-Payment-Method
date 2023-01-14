@@ -1,0 +1,38 @@
+{%include 'admin_header.html'%}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height:200px">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+		<h1> complaints</h1>
+      	</div>
+      </div>
+  </section>
+<center>
+	
+<center>
+	
+	<table  class="table" style="width:500px;margin-bottom: 19rem;margin-top: 2rem;">
+		<tr>
+			<th>slno.</th>
+			<th>Customer</th>
+			<th>Complaint</th>
+			<th>Replay</th>
+			<th>Date</th>
+		</tr>
+		{%for row in data['complaint']%}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{row['f_name']}} {{row['l_name']}}</td>
+			<td>{{row['complaint']}}</td>
+			{%if row['replay']=="pending"%}	
+			<td><a href="admin_send_replay?id={{row['complaint_id']}}" class="btn btn-danger">Replay send</a></td>
+			{%else%}
+			<td>{{row['replay']}}</td>
+			{%endif%}
+			<td>{{row['date']}}</td>
+		</tr>
+		{%endfor%}
+	</table>
+</center>
+{%include 'footer.html'%}

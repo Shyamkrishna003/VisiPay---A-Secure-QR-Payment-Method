@@ -1,0 +1,171 @@
+{%include 'employee_header.html'%}
+{% block login %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height: 400px;">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+        
+{%if data['up']%}
+<center>
+	<form method="post">
+		<h1>update account and customer</h1>
+		<table class="table" style="width:500px;color: white;">
+			<tr>
+				<th>First Name</th>
+				<td><input type="text" name="first_name" value="{{data['up'][0]['first_name']}}"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td><input type="text" name="last_name" value="{{data['up'][0]['last_name']}}"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>House Name</th>
+				<td><input type="text" name="house_name" value="{{data['up'][0]['house_name']}}"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Place</th>
+				<td><input type="text" name="place" value="{{data['up'][0]['place']}}"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Pincode</th>
+				<td><input type="text" name="pincode" value="{{data['up'][0]['pincode']}}"required="" class="form-control" pattern="[0-9]{6}" required title="Please enter a valid pincode"></td>
+			</tr>
+			<tr>
+				<th>Phone</th>
+				<td><input type="text" name="phone" value="{{data['up'][0]['phone']}}"required="" class="form-control" pattern="[0-9]{10}" required title="Please enter a valid phone number"></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td><input type="text" name="email" value="{{data['up'][0]['email']}}"required="" class="form-control" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Please enter a valid email address"></td>
+			</tr>
+			
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="update" class="btn btn-success"></td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+{%else%}
+
+<center>
+	<form method="post">
+		<h1>Manage account and customer</h1>
+		<table class="table" style="width:500px;color: white;">
+			<tr>
+				<th>First Name</th>
+				<td><input type="text" name="first_name" required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td><input type="text" name="last_name" required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>House Name</th>
+				<td><input type="text" name="house_name"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Place</th>
+				<td><input type="text" name="place" required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Pincode</th>
+				<td><input type="text" name="pincode" required="" class="form-control" pattern="[0-9]{6}" required title="Please enter a valid pincode"></td>
+			</tr>
+			<tr>
+				<th>Phone</th>
+				<td><input type="text" name="phone" required="" class="form-control"pattern="[0-9]{10}" required title="Please enter a valid phone number"></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td><input type="text" name="email" required="" class="form-control" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required title="Please enter a valid email address"></td>
+			</tr>
+			<tr>
+				 <th>Select Bank</th>
+				 <td><select name = "bank" required class="form-control"required="" class="form-control">
+				    <option value = "">Select----</option>
+				    {% for row in data['banks'] %}
+				     <option value = "{{ row['bank_id'] }}">{{row['bank_name']}}</option>
+				  	{% endfor %}
+				 </select>
+			</td></tr>
+			<!-- <tr>
+				<th>Account Number</th>
+				<td><input type="text" name="ac" required="" class="form-control"></td>
+			</tr> -->
+			<tr>
+				<th>Account Balance</th>
+				<td><input type="text" name="balance"required="" class="form-control" ></td>
+			</tr>
+			<tr>
+				<th>Username</th>
+				<td><input type="text" name="uname"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Password</th>
+				<td><input type="password" name="pass"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<th>Sercurity Key</th>
+				<td><input type="password" name="key"required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="submit" class="btn btn-success"></td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+{%endif%}
+</div>
+</div>
+</div>
+</section><!-- End Hero -->
+
+{% endblock %}
+
+<center>
+	
+		<h1>view customer & account details</h1>
+		<table class="table" style="width:500px;color:black;margin-top: 2rem;margin-bottom: 14rem;">
+			<tr>
+				<th>slno.</th>
+				<th>Customer Name</th>
+				<th>House Name</th>
+				<th>Place</th>
+				<th>Pincode</th>
+				<th>Phone</th>
+				<th>Email</th>
+				<th>Bank</th>
+				<th>Account Number</th>
+				<th>Account Balance</th>
+				<th>date</th>
+			</tr>
+			{%for row in data['ac']%}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{row['f_name']}} {{row['l_name']}}</td>
+				<td>{{row['house']}}</td>
+				<td>{{row['cust_place']}}</td>
+				<td>{{row['pin']}}</td>
+				<td>{{row['cust_phone']}}</td>
+				<td>{{row['cust_email']}}</td>
+				<td>{{row['bank_name']}}</td>
+				<td>{{row['account_number']}}</td>
+				<td>{{row['balance']}}</td>
+				<td>{{row['date_time']}}</td>
+
+				<td><a href="?action=update&id={{row['customer_id']}}&aid={{row['account_id']}}" class="btn btn-success">Update</a></td>
+				<td><a href="?action=delete&id={{row['customer_id']}}&aid={{row['account_id']}}" class="btn btn-danger">Delete</a></td>
+			</tr>
+			{%endfor%}
+		</table>
+	
+</center>
+
+<style type="text/css">
+	tr,td,th{
+		border: 0px !important;
+	}
+</style>
+{%include 'footer.html'%}

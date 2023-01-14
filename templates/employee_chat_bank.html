@@ -1,0 +1,53 @@
+{%include 'employee_header.html'%}
+{% block login %}
+<!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 500px;">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+<center>
+	<form method="post">
+		<h1>Messaage</h1>
+		<table class="table" style="width:500px;color: white;">
+			<tr>
+				<th>Message</th>
+				<td><input type="text" name="message" required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="submit" value="Send" class="btn btn-danger"></td>
+			</tr>
+		</table>
+	</form>
+</center>
+</div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  {% endblock %}
+
+
+<center>
+	<h1>message box</h1>
+	<table class="table" style="width: 500px;margin-bottom: 20rem;margin-top: 2rem;">
+		{%for row in data['msg']%}
+		{% if row['sender_id']==data['employee'] %}
+		<tr>
+			<td align="right">{{row['message']}}</td>
+			
+		</tr>
+		{%else%}
+		<tr>
+			<td align="left">{{row['message']}}</td>
+			
+		</tr>
+		{%endif%}
+		{%endfor%}
+	</table>
+</center>
+
+<style type="text/css">
+	tr,td,th{
+		border: 0px !important;
+	}
+</style>
+{%include 'footer.html'%}

@@ -1,0 +1,35 @@
+{%include 'admin_header.html'%}
+{% block login %}
+<!-- ======= Hero Section ======= -->
+  <section id="hero" style="height: 600px;">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+<center>
+    <form method="post">
+    <h1>Replay</h1>
+   <table  class="table" style="width:500px;color: white;">
+        <tr>
+            <th>Replay</th>
+            <td><input type="text" name="replay" required="" class="form-control"></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2"><input type="submit" name="submit" value="Send" class="btn btn-danger"></td>
+        </tr>
+    </table>
+    </form>
+</center>
+
+
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  {% endblock %}
+
+<style type="text/css">
+    tr,td,th{
+        border: 0px !important;
+    }
+</style>
+{%include 'footer.html'%}

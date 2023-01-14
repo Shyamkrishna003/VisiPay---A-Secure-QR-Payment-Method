@@ -1,0 +1,43 @@
+{%include 'employee_header.html'%}
+{% block login %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height: 700px;">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+<center>
+	<form method="post">
+	<h1>Deposit Amount</h1>
+	<table class="table" style="width:500px;color: white;">
+		<tr>
+			<th>From Account</th>
+			<td><input type="text" name="from" required="" class="form-control"></td>
+		</tr>
+		<tr>
+			<th>To Account</th>
+			<td><input type="text" name="to" required="" class="form-control"></td>
+		</tr>
+		<tr>
+			<th>Amount</th>
+			<td><input type="text" name="amt" required="" class="form-control"></td>
+		</tr>
+		<tr>
+			<td align="center" colspan="2"><input type="submit" name="submit" value="Deposit" class="btn btn-success"></td>
+		</tr>
+	</table>
+	</form>
+</center>
+</div>
+</div>
+</div>
+</section><!-- End Hero -->
+
+{% endblock %}
+
+
+
+<style type="text/css">
+	tr,td,th{
+		border: 0px !important;
+	}
+</style>
+{%include 'footer.html'%}

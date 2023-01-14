@@ -1,0 +1,79 @@
+{%include 'bank_header.html'%}
+{% block login %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height: 400px;">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+        
+{%if data['up']%}
+<center>
+	<form method="post">
+		<h1>update Notification</h1>
+		<table class="table" style="width:500px;color: white;">
+			<tr>
+				<th>Notification</th>
+				<td><input type="text" name="notification" value="{{data['up'][0]['notification']}}"  required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="update" class="btn btn-success"></td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+{%else%}
+
+<center>
+	<form method="post">
+		<h1>Manage Notification</h1>
+		<table class="table" style="width:500px;color: white;">
+			<tr>
+				<th>Notification</th>
+				<td><input type="text" name="notification"  required="" class="form-control"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="2"><input type="submit" name="submit" class="btn btn-success"></td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+{%endif%}
+</div>
+</div>
+</div>
+</section><!-- End Hero -->
+
+{% endblock %}
+
+
+<center>
+	<table>
+		<h1 style="color: black;"> Notification</h1>
+		<table class="table" style="width:500px;color:black;margin-bottom: 12rem;">
+			<tr>
+				<th>slno.</th>
+				<th>Notification</th>
+				<th>date</th>
+			</tr>
+			{%for row in data['notification']%}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{row['notification']}}</td>
+				<td>{{row['date']}}</td>
+				<td><a href="?action=update&id={{row['notification_id']}}" class="btn btn-success">Update</a></td>
+				<td><a href="?action=delete&id={{row['notification_id']}}" class="btn btn-danger">Delete</a></td>
+			</tr>
+			{%endfor%}
+		</table>
+	</table>
+</center>
+
+<style type="text/css">
+	tr,td,th{
+		border: 0px !important;
+	}
+</style>
+
+
+{%include 'footer.html'%}
