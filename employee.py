@@ -1,5 +1,8 @@
 from flask import *
 from database import *
+import qrcode
+import uuid
+# from PIL import Image
 employee=Blueprint('employee',__name__)
 
 @employee.route('/employee_home')
@@ -69,10 +72,12 @@ def employee_manage_ac_nd_customer():
 		email=request.form['email']
 		bank=request.form['bank']
 		
-		balance=request.form['balance']
+
 		uname=request.form['uname']
 		pas=request.form['pass']
-		key=request.form['key']
+
+		
+	
 
 		import random
 
@@ -80,12 +85,17 @@ def employee_manage_ac_nd_customer():
 
 		q="insert into login values(null,'%s','%s','customer')"%(uname,pas)
 		id=insert(q)
-		q="insert into customer values(null,'%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(id,key,fname,lname,house,place,pin,phone,email)
-		insert(q)
+		q="insert into customer values(null,'%s','%s','%s','%s','%s','%s','%s','%s')"%(id,fname,lname,house,place,pin,phone,email)
+		
 		cust_id=insert(q)
 
-		q="insert into account values(null,'%s','%s','%s','%s',now(),'pending')"%(cust_id,bank,ac,balance)
-		insert(q)
+		q="insert into account values(null,'%s','%s','%s',0,now(),'pending','no qr')"%(cust_id,bank,ac)
+		aid=insert(q)
+		s=qrcode.make(str(aid))
+		path="static/qrcode/"+str(uuid.uuid4())+".png"
+		s.save(path)
+		q="update account set qr='%s' where account_id='%s'"%(path,aid)
+		update(q)
 		flash('inserted successfully')
 		return redirect(url_for('employee.employee_manage_ac_nd_customer'))
 
@@ -209,7 +219,7 @@ def employee_chat_bank():
 @employee.route('/employee_msg_customer')
 def employee_msg_customer():
 	data={}
-	q="SELECT *,CONCAT(`customer`.place) AS cust_place,CONCAT(`customer`.phone) as cust_phone , concat (`customer`.email) as cust_email FROM customer INNER JOIN ACCOUNT USING(customer_id) INNER JOIN bank USING(bank_id)  WHERE  bank.bank_id=(SELECT bank_id FROM employee WHERE employee_id='%s') GROUP BY customer_id"%(session['employee_id'])
+	q="SELECT *,CONCAT(`customer`.place) AS cust_place,CONCAT(`customer`.phone) as cust_phone , concat (`customer`.email) as cust_email,customer.login_id as login_id  FROM customer INNER JOIN ACCOUNT USING(customer_id) INNER JOIN bank USING(bank_id)  WHERE  bank.bank_id=(SELECT bank_id FROM employee WHERE employee_id='%s') GROUP BY customer_id"%(session['employee_id'])
 	print(q)
 	res=select(q)
 	data['customer']=res
