@@ -1,43 +1,52 @@
 {% include 'public_header.html' %}
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero">
-    <div class="hero-container">
-      <div data-aos="fade-in">
-        
-
-        <center>
-	<h1> LOGIN </h1>
-	<form method="post">
-		<table class="table" style="width: 500px;color: white;">
-			<tr>
-				<th>USERNAME</th>
-				<td> <input type="text"  name="username" placeholder="enter your username" class="form-control" required=""></td>
-			</tr>
-			<tr>
-				<th>PASSWORD</th>
-				<td><input type="password" name="password" placeholder="enter your password" class="form-control" required=""></td>
-			</tr>
-			<tr>
-				<td align ="center" colspan="2"><input type ="submit" name="submit" value="Login Here" class="btn btn-info"> </td>
-			</tr>
-		</table>
-			
-	</form>
-</center>
-        <!-- <div class="actions">
-          <a href="login" class="btn-get-started">Login Here</a> -->
-          <!-- <a href="#services" class="btn-services">Our Services</a> -->
-        <!-- </div> -->
-      </div>
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+  <div class="hero-container">
+    <div data-aos="fade-in">
+      <center>
+        <h1> LOGIN </h1>
+        <form method="post" onsubmit="return validateForm()">
+          <table class="table" style="width: 500px; color: white;">
+            <tr>
+              <th>USERNAME</th>
+              <td><input type="text" id="username" name="username" placeholder="enter your username" class="form-control"></td>
+            </tr>
+            <tr>
+              <th>PASSWORD</th>
+              <td><input type="password" id="password" name="password" placeholder="enter your password" class="form-control"></td>
+            </tr>
+            <tr>
+              <td align="center" colspan="2"><input type="submit" name="submit" value="Login Here" class="btn btn-info"></td>
+            </tr>
+          </table>
+        </form>
+      </center>
     </div>
-  </section><!-- End Hero -->
+  </div>
+</section><!-- End Hero -->
 
 <style type="text/css">
-	tr,td,th{
-		border: 0px !important;
-	}
+  tr, td, th {
+    border: 0px !important;
+  }
 </style>
 
+<script>
+  function validateForm() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username) {
+      alert("Please enter your username.");
+      return false;
+    }
+    if (!password) {
+      alert("Please enter your password.");
+      return false;
+    }
+    return true; // Proceed with form submission
+  }
+</script>
 
 {% include 'footer.html' %}

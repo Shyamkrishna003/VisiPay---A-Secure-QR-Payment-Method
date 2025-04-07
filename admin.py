@@ -96,12 +96,11 @@ def admin_view_loanrequest():
 @admin.route('admin_view_complaint',methods=['get','post'])
 def admin_view_complaint():
 	data={}
-	q="SELECT * FROM complaint inner join customer using(customer_id)"
+	q="SELECT concat( f_name ,' ' ,l_name) as name,complaint,replay ,date,complaint_id  FROM complaint inner join customer on complaint.customer_id=customer.login_id union SELECT merchantname as name,complaint,replay ,date,complaint_id  FROM complaint INNER JOIN merchant ON complaint.customer_id=merchant.login_id"
 	res=select(q)
 	data['complaint']=res
 
 	return render_template("admin_view_complaint.html",data=data)
-
 
 
 
@@ -121,3 +120,60 @@ def admin_send_replay():
 		return redirect(url_for('admin.admin_view_complaint',id=id))
 
 	return render_template("admin_send_replay.html",data=data)
+
+
+
+
+
+
+# <-------------------Secure Money Transfer ------------------->
+
+
+
+@admin.route('/admin_view_merchant',methods=['GET','POST'])
+def admin_view_merchant():
+    data={}
+    s="select * from merchant inner join login using(login_id)"
+    #  where usertype='pending' or usertype='rejected'
+    data['merchant']=select(s)
+    if 'action' in request.args:
+        login_id=request.args['login_id']
+        action=request.args['action']
+    else: action=None
+    if action=='accept':
+        s="update login set usertype='merchant' where login_id='%s'"%(login_id)
+        delete(s)
+        s="insert into wallet values(null,'%s',0,'merchant')"%(login_id)
+        insert(s)
+        return redirect(url_for('admin.admin_view_merchant'))
+    if action=='reject':
+        s="update login set usertype='rejected' where login_id='%s'"%(login_id)
+        delete(s)
+        return redirect(url_for('admin.admin_view_merchant'))
+    return render_template('admin_view_merchant.html',data=data)
+
+
+
+@admin.route('/admin_view_user',methods=['GET','POST'])
+def admin_view_user():
+    data={}
+    s="select * from customer"
+    data['user']=select(s)
+    return render_template('admin_view_user.html',data=data)
+
+
+
+@admin.route('/admin_send_notification', methods=['GET', 'POST'])
+def admin_send_notification():
+    data = {}  
+    s="select * from notification"
+    data['n']=select(s)
+    if 'submit' in request.form:
+        notification = request.form['notification']
+        s = "insert into notification values(null, 0, '%s', curdate())" % (notification)
+        data['notification'] = insert(s)
+        flash("Your Notification Sented Successfully")
+        return redirect(url_for('admin.admin_send_notification'))
+    return render_template('admin_send_notification.html',data=data)
+
+

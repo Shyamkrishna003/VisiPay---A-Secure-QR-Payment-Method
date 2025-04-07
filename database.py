@@ -2,6 +2,7 @@ import mysql.connector
 
 password=""
 database="bank_transaction"
+
 def select(qry):
 	con=mysql.connector.connect(user="root",password=password,host="localhost",database=database)
 	cur=con.cursor(dictionary=True)
@@ -37,5 +38,3 @@ def delete(qry):
 	cur.close()
 	con.close()
 	return result
-
-

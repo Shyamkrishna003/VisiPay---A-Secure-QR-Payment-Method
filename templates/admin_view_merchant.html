@@ -1,0 +1,52 @@
+{% include 'admin_header.html' %}
+   
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height:100px">
+    <div class="hero-container">
+        <div data-aos="fade-in">
+            <h1>Merchant List</h1>
+        </div>
+    </div>
+</section>
+
+<center>
+    <br><br><br>
+    <form action="" method="post">
+        <table class="table" style="width: 500px; margin-bottom: 20rem; margin-top: 2rem;">
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for i in data['merchant'] %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ i['merchantname'] }}</td>
+                <td>{{ i['place'] }}</td>
+                <td>{{ i['phone'] }}</td>
+                <td>{{ i['email'] }}</td>
+                {% if i['usertype'] == 'merchant' %}
+                    <td>Accepted</td>
+                    <td><a href="?action=reject&login_id={{ i['login_id'] }}" class="btn btn-danger">Reject</a></td>
+                {% elif i['usertype'] == 'rejected' %}
+                    <td>Rejected</td>
+                    <td><a href="?action=accept&login_id={{ i['login_id'] }}" class="btn btn-success">Accept</a></td>
+                {% else %}
+                    <td>Pending</td>
+                    <td>
+                        <a href="?action=accept&login_id={{ i['login_id'] }}" class="btn btn-success">Accept</a>
+                        <a href="?action=reject&login_id={{ i['login_id'] }}" class="btn btn-danger">Reject</a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <br><br><br><br>
+</center>
+
+{% include 'footer.html' %}

@@ -1,0 +1,61 @@
+{% include 'admin_header.html' %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" style="height:100px">
+  <div class="hero-container">
+    <div data-aos="fade-in">
+      <h1>Send Notification</h1>
+    </div>
+  </div>
+</section>
+
+<center>
+  <div>
+    <br><br><br><br>
+    <form action="" method="post" onsubmit="return validateNotification()">
+      <table>
+        <tr>
+          <td>
+            <textarea id="notification" name="notification" placeholder="Enter the Notification" class="form-control"></textarea><br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+          </td>
+        </tr>
+      </table><br><br>
+      <h3>Notifications</h3>
+      <table class="table" style="width:500px;color:black;margin-bottom: 14rem;">
+        <tr>
+            <th>Index</th>
+            <th>Content</th>
+            <th>Date</th>
+        </tr>
+        {%for i in data['n']%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{i['notification']}}</td>
+            <td>{{i['date']}}</td>
+        </tr>
+        {%endfor%}
+      </table>
+    </form>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br>
+</center>
+
+<script>
+  function validateNotification() {
+    const notification = document.getElementById("notification").value.trim();
+
+    if (!notification) {
+      alert("Please enter a notification before submitting.");
+      return false; // Prevents form submission
+    }
+
+    return true; // Proceeds with form submission
+  }
+</script>
+
+{% include 'footer.html' %}
